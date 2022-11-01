@@ -1,6 +1,6 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-import PictureApiService from './fetch-picture';
+import PictureApiService from './js/fetch-picture';
 
 let gallery = new SimpleLightbox('.gallery a', {
   enableKeyboard: true,
@@ -23,11 +23,11 @@ btnLoadMore.addEventListener('click', onBtnClick);
 
 async function onSubmit(e) {
   e.preventDefault();
+  fetchPhotos.resetPageNumber();
+  if (!e.currentTarget.elements.searchQuery.value) return;
   btnLoadMore.classList.add('is-hidden');
   cleanContainer();
-  fetchPhotos.query = e.currentTarget.elements.searchQuery.value
-    .toLowerCase()
-    .trim();
+  fetchPhotos.query = e.currentTarget.elements.searchQuery.value;
   e.target.reset();
   console.log('searchQueryResult:', `${fetchPhotos.searchQuery}`);
 
